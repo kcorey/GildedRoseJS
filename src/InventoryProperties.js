@@ -12,11 +12,11 @@ function InventoryProperties(name, sell_in_modifier, quality_modifier, max_quali
 // Set up the properties' characteristics
 var propertiesByType = []
 
-propertiesByType.push(new InventoryProperties("Aged Brie",-1,1,50,0,'none'))
-propertiesByType.push(new InventoryProperties("Sulfuras",0,0,80,80,'none'))
+propertiesByType.push(new InventoryProperties("Aged Brie",-1,1,50,0,standardQuality))
+propertiesByType.push(new InventoryProperties("Sulfuras",0,0,80,80,standardQuality))
 propertiesByType.push(new InventoryProperties("Backstage passes",-1,1,50,0,backstagePassesQuality))
-propertiesByType.push(new InventoryProperties("Conjured",-1,-2,50,0,'none'))
-propertiesByType.push(new InventoryProperties("*",-1,-1,50,0,'none'))
+propertiesByType.push(new InventoryProperties("Conjured",-1,-2,50,0,standardQuality))
+propertiesByType.push(new InventoryProperties("*",-1,-1,50,0,standardQuality))
 
 
 // return the corresponding properties for an item
@@ -37,11 +37,19 @@ function propertiesForItem(item) {
 }
 
 
+function standardQuality(currentQuality,days,qualityModifier) {
+
+  currentQuality += qualityModifier
+  if (days < 1) {
+
+    currentQuality += qualityModifier
+  }
+
+  return currentQuality
+}
 
 // A custom quality calculator for backstagePasses.
 function backstagePassesQuality(currentQuality,days,qualityModifier) {
-
-  var result = currentQuality
 
   currentQuality += qualityModifier
 
